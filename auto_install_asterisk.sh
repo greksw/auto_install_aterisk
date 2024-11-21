@@ -23,7 +23,7 @@ dnf update -y > "$LOG_DIR/update.log" 2>&1 || handle_error "Обновление
 # Установка необходимых пакетов
 echo "Устанавливаем зависимости..."
 dnf groupinstall -y "Development Tools" >> "$LOG_DIR/dependencies.log" 2>&1 || handle_error "Установка Development Tools" "dependencies"
-dnf install -y epel-release wget tar ncurses-devel libxml2-devel libsqlite3x-devel >> "$LOG_DIR/dependencies.log" 2>&1 || handle_error "Установка зависимостей" "dependencies"
+dnf install -y epel-release wget tar ncurses-devel libxml2-devel sqlite-devel >> "$LOG_DIR/dependencies.log" 2>&1 || handle_error "Установка зависимостей" "dependencies"
 
 # Загрузка исходников Asterisk
 echo "Загружаем исходники Asterisk..."
