@@ -20,11 +20,15 @@ handle_error() {
 echo "Обновляем систему..."
 dnf update -y > "$LOG_DIR/update.log" 2>&1 || handle_error "Обновление системы" "update"
 
+#Добавление пакетного репозитория EPEL в дистрибутивы AlmaLinux
+dnf config-manager --set-enabled crb
+dnf install epel-release -y
+
 # Установка необходимых пакетов
 echo "Устанавливаем зависимости..."
 dnf groupinstall -y "Development Tools" >> "$LOG_DIR/dependencies.log" 2>&1 || handle_error "Установка Development Tools" "dependencies"
-dnf install -y epel-release wget tar ncurses-devel libxml2-devel sqlite-devel chkconfig >> "$LOG_DIR/dependencies.log" 2>&1 || handle_error "Установка зависимостей" "dependencies"
-dnf --enablerepo=crb install jansson-devel doxygen >> "$LOG_DIR/dependencies.log" 2>&1 || handle_error "Установка зависимостей2" "dependencies2"
+dnf install -y epel-release wget tar ncurses-devel libxml2-devel sqlite-devel chkconfig jansson-devel doxygen >> "$LOG_DIR/dependencies.log" 2>&1 || handle_error "Установка зависимостей" "dependencies"
+
 
 # Загрузка исходников Asterisk
 echo "Загружаем исходники Asterisk..."
