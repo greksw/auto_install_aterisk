@@ -90,7 +90,7 @@ echo "Копирование systemd файла и его активация..."
 cp contrib/systemd/asterisk.service /etc/systemd/system/
 sed -i 's|/usr/sbin/asterisk|/usr/local/asterisk/sbin/asterisk|' /etc/systemd/system/asterisk.service
 systemctl daemon-reload
-systemctl enable asterisk
+systemctl enable asterisk >> $LOG_DIR/enable_service.log 2>&1
 
 echo "Запуск Asterisk..."
 systemctl start asterisk
